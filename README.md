@@ -1,6 +1,6 @@
 # gpui-pre-macos (patched)
 
-Zed's `gpui_macos` crate (gpui-pre 0.3.6 snapshot of zed@bcf6582), with a
+Zed's `gpui_macos` crate (gpui-pre **0.3.7** snapshot of zed@1a28cff), with a
 patch for a macOS frame-source stall bug.
 
 上游：<https://crates.io/crates/gpui-pre-macos>（zed-industries/zed 快照）
@@ -15,7 +15,7 @@ occlusion / key-status / screen 变化等事件驱动。一旦恢复事件丢失
 gpui 核心为此提供了兜底机制——`PlatformWindow::frame_waker()` /
 `schedule_frame()`（见 gpui `InvalidationHandler::wake_platform` 的文档，
 其用途正是"平台停止为空闲窗口请求帧时唤醒帧源"），但 mac 平台对二者
-都是 trait 默认空实现。
+都是 trait 默认空实现（截至 gpui-pre 0.3.7、zed main 均未修）。
 
 本补丁：
 
@@ -29,6 +29,12 @@ gpui 核心为此提供了兜底机制——`PlatformWindow::frame_waker()` /
 以及 `Cargo.toml` 增加 `[lints.rust] deprecated = "allow"`
 （恢复 cargo 对 registry 依赖 cap-lints 的同等行为，
 静默上游 pin 在已废弃 cocoa 0.26 生态产生的 1200+ 条 deprecation 噪音）。
+
+## 版本对应
+
+| 本仓库 commit | 基于 gpui-pre-macos | 配套 gpui-pre |
+|---|---|---|
+| 见 `git log` | 0.3.7 | `=0.3.7` |
 
 ## License
 
